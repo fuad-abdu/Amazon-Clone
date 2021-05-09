@@ -1,3 +1,6 @@
+.checkout{
+    margin-top: 60px;
+}
 .checkout__container{
     display: flex;
     padding: 20px;
@@ -16,9 +19,13 @@
 }
 
 .checkout__right{
-    margin-left: auto;
+    /* padding-left: auto;
+    margin-left: auto; */
+    /* padding-right: 5px; */
 }
 
 .checkout__username{
+    margin-left: 10px;
+    font-size: 18px;
     color: chocolate;
 }

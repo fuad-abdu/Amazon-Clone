@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { auth } from './firebase';
+import { auth, db } from './firebase';
 import "./SignUp.css"
+import { useStateValue } from './StateProvider';
 
 function SignUp() {
 
@@ -10,6 +11,7 @@ function SignUp() {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [mobile, setMobile] = useState("");
+    const [{ basket, user }, dispatch] = useStateValue();
 
     const signUp = (e) => {
         e.preventDefault();
@@ -19,9 +21,22 @@ function SignUp() {
                 console.log(auth);
                 if (auth) {
                     history.push('/');
+
+                    // console.log("auth >>>> ",auth.user.uid);
+                    db.collection('users')
+                        .doc(auth.user.uid)
+                        .collection("user_details")
+                        .doc(email)
+                        .set({
+                            email: email,
+                            name: name,
+                            mobile: mobile
+                        })
                 }
             })
             .catch(err => alert(err.message))
+
+
     }
 
     return (
@@ -35,7 +50,7 @@ function SignUp() {
 
                 <form>
                     <h5>Your Name</h5>
-                    <input type="text" value={name} onChange={e => setName(e.target.value)} name="" id=""  />
+                    <input type="text" value={name} onChange={e => setName(e.target.value)} name="" id="" />
 
                     <h5>Mobile Number</h5>
                     <input type="tel" value={mobile} onChange={e => setMobile(e.target.value)} name="" id="" placeholder="Mobile" />
