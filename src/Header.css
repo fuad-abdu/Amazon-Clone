@@ -3,7 +3,8 @@
   display: flex;
   align-items: center;
   background-color: #131921;
-  position: sticky;
+  box-sizing: border-box;
+  position: absolute;
   top: 0;
   z-index: 100;
   position: fixed;
@@ -53,7 +54,8 @@
 }
 .header__nav {
   display: flex;
-  justify-content: space-evenly;
+  padding: 0 20px;
+  /* justify-content: space-between; */
 }
 .header__option {
   cursor: pointer;
@@ -69,6 +71,7 @@
 }
 
 .header__optionBasket {
+  margin-left: 15px;
   display: flex;
   align-items: center;
   color: white;
@@ -81,4 +84,70 @@
 .header__basketCount {
   margin-left: 10px;
   margin-right: 10px;
+}
+
+.menu-toggle{
+  display: none;
+  float: right;
+  cursor: pointer;
+  margin-left: 20px;
+  margin-top: -6px;
+}
+
+.header__nav nav ul{
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.header__nav nav ul li{
+  list-style: none;
+}
+
+.header__nav nav ul a{
+  text-decoration: none;
+}
+
+@media (max-width: 790px) {
+  .menu-toggle{
+    display: block;
+  }
+  
+  .header__nav nav{
+    border-top: solid 1px lightgrey;
+    position: absolute;
+    width: 100%;
+    height: calc(100vh - 50px);
+    background-color: #131921;
+    top: 60px;
+    left: -100%;
+    transition: 0.5s;
+  }
+
+  .header__nav .active{
+    left: 0;
+  }
+  .header__nav .notactive{
+    left: -100%;
+  }
+
+  .header__nav nav ul{
+    display: block;
+  }
+
+  .header__nav nav ul li a{
+    text-align: left;
+  }
+
+  .header__option{
+    padding: 10px;
+    border-bottom: solid 1px lightgrey;
+    /* margin-bottom: 30px; */
+  }
+  .header__optionLineOne{
+    font-size: 14px;
+  }
+  .header__optionLineTwo{
+    font-size: 15px;
+  }
 }

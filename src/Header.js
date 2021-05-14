@@ -12,7 +12,7 @@ function Header() {
   const [{ basket, user }, dispatch] = useStateValue();
   const history = useHistory();
   const [userDetails, setUserDetails] = useState([]);
-
+  const [toggle, setToggle] = useState(false)
 
   const handleAuthentication = () => {
     if (user) {
@@ -50,8 +50,19 @@ function Header() {
     }
   }, [user])
 
+  const Toggle = () => {
+    if (toggle) {
+      setToggle(false)
+    } else {
+      setToggle(true)
+    }
+  }
+
   return (
     <div className="header">
+
+      <div className="menu-toggle" onClick={Toggle}><img src="/menu.png" alt="" /></div>
+
       <Link to="/">
         <img
           className="header__logo"
@@ -66,24 +77,36 @@ function Header() {
       </div>
 
       <div className="header__nav">
-        <Link to={!user && "/login"} style={{ textDecoration: 'none' }}>
-          <div onClick={handleAuthentication} className="header__option">
-            <span className="header__optionLineOne">{user ? "Hello "+userDetails.name : 'Hello Guest'}</span>
-            <span className="header__optionLineTwo">{user ? 'Sign Out' : 'Sign In'}</span>
-          </div>
-        </Link>
-        <Link onClick={checkLogin} style={{ textDecoration: 'none' }}>
-          <div className="header__option">
-            <span className="header__optionLineOne">Returns</span>
-            <span className="header__optionLineTwo">Orders</span>
-          </div>
-        </Link>
-        <a href="https://www.primevideo.com" style={{ textDecoration: 'none' }}>
-          <div className="header__option">
-            <span className="header__optionLineOne">Your</span>
-            <span className="header__optionLineTwo">Prime</span>
-          </div>
-        </a>
+
+        <nav className={toggle ? "active" : "notactive"}>
+          <ul>
+            <li>
+              <a href={!user && "/login"}>
+                <div onClick={handleAuthentication} className="header__option">
+                  <span className="header__optionLineOne">{user ? "Hello " + userDetails.name : 'Hello Guest'}</span>
+                  <span className="header__optionLineTwo">{user ? 'Sign Out' : 'Sign In'}</span>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="" onClick={checkLogin} >
+                <div className="header__option">
+                  <span className="header__optionLineOne">Returns</span>
+                  <span className="header__optionLineTwo">Orders</span>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.primevideo.com">
+                <div className="header__option">
+                  <span className="header__optionLineOne">Your</span>
+                  <span className="header__optionLineTwo">Prime</span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
         <Link to="/checkout" style={{ textDecoration: 'none' }}>
           <div className="header__optionBasket mt-1">
             <ShoppingCartIcon />
